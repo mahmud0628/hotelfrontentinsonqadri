@@ -1,0 +1,67 @@
+<c-row>
+  <c-col lg="2" md="4">
+    <c-widget-stat-e
+    
+      [title]="'Miqdori'"
+      [value]="'1,123'"
+      class="mb-4"
+    >
+    <svg cIcon name="cilInstitution" size="3xl"></svg>
+      <c-chart   class="mx-auto" height="60" width="150"></c-chart>
+    </c-widget-stat-e>
+  </c-col>
+  <c-col lg="2" md="4">
+    <c-widget-stat-e
+      [title]="'Aholi soni'"
+      [value]="'1,123'"
+      class="mb-4"
+    >
+    <svg cIcon name="cilGroup" size="3xl"></svg>
+      <c-chart [options]="barOptions" class="mx-auto" height="60" width="150"></c-chart>
+    </c-widget-stat-e>
+  </c-col>
+  <c-col lg="2" md="4">
+    <c-widget-stat-e
+      [title]="'Tadbirkorlar soni'"
+      [value]="'1,123'"
+      class="mb-4"
+    >
+    <svg cIcon name="cilGroup" size="3xl"></svg>
+
+      <c-chart [options]="barOptions" class="mx-auto" height="60" width="150"></c-chart>
+    </c-widget-stat-e>
+  </c-col>
+  <c-col lg="2" md="4">
+    <c-widget-stat-e
+      [title]="'Taminotchilar soni'"
+      [value]="'1,123'"
+      class="mb-4"
+    > <svg cIcon name="cilBank" size="3xl"></svg>
+      <c-chart  [options]="lineOptions" class="mx-auto" height="60" type="line" width="150"></c-chart>
+    </c-widget-stat-e>
+  </c-col>
+
+  
+  
+
+ <c-col lg="2" md="4">
+    <c-widget-stat-e
+      [title]="'Bo\'sh binolar'"
+      [value]="'1,123'"
+      class="mb-4"
+    >
+    <svg cIcon name="cilIndustry" size="3xl"></svg>
+      <c-chart  [options]="lineOptions" class="mx-auto" height="60" type="line" width="150"></c-chart>
+    </c-widget-stat-e>
+  </c-col>
+  <c-col lg="2" md="4">
+    <c-widget-stat-e
+      [title]="'Bo\'sh yer maydoni'"
+      [value]="'1,123'"
+      class="mb-4"
+    >
+    <svg cIcon name="cilInstitution" size="3xl"></svg>
+      <c-chart  [options]="lineOptions" class="mx-auto" height="60" type="line" width="150"></c-chart>
+    </c-widget-stat-e>
+  </c-col> -
+</c-row>

@@ -1,0 +1,24 @@
+<mat-card class="container">
+  <mat-form-field>
+    <ng-container>
+      <!-- <app-file-shower   *ngIf="!newChoose" [address]="address" [shakl]="'short'" [file]="selectedFile" [width]="200" [height]="100"></app-file-shower>
+      <app-file-shower *ngIf="newChoose" [shakl]="'short'" [file]="selectedFile" [width]="200" [height]="100"></app-file-shower> -->
+    </ng-container>
+    <ng-template #noFile>
+      <mat-icon>image</mat-icon>
+      Rasm tanlanmagan
+    </ng-template>
+    <mat-toolbar>
+      <!-- Display files names -->
+      <input matInput value="Rasm tanlang" readonly name="name" />
+
+      <!-- Browse Button -->
+      <button mat-flat-button color="primary">
+        Rasm tanlang
+      </button>
+    </mat-toolbar>
+
+    <!-- Fetch selected filed on change -->
+    <input type="file" name="fayl" #fileInput id="uploadFile" multiple="false" accept='image/*' (input)="openWindow($event)">
+  </mat-form-field>
+</mat-card>

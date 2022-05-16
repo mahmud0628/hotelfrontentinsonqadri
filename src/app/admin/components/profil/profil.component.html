@@ -1,0 +1,92 @@
+<div class="container-xl px-4 mt-4">
+    <nav class="nav nav-borders">
+        <a class="nav-link active ms-0" href="https://www.bootdey.com/snippets/view/bs5-edit-profile-account-details"
+            target="__blank">Profile</a>
+    </nav>
+    <hr class="mt-0 mb-4">
+    <div class="row">
+        <div class="col-xl-4">
+            <div class="card mb-4 mb-xl-0">
+                <div class="card-header">Profil rasmi</div>
+                <div class="card-body text-center">
+                    <img class="img-account-profile rounded-circle mb-2"
+                        [src]=" rasmManzil ?? 'https://www.inson-qadri.uz/assets/images/logo-round.png'" alt="">
+                    <div class="small font-italic text-muted mb-4">5 MBgacha bo'lgan JPG yoki PNG fayl yuklang </div>
+                    <input type="file" class="file-input" #fileUpload>
+
+                    <!-- (change)="onFileSelected($event)" -->
+                    <!-- (click)="fileUpload.click()" -->
+                    <!-- <button class="btn btn-primary" type="button"  >Rasm yuklash</button> -->
+
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-8">
+            <div class="card mb-4">
+                <div class="card-header">Akkount ma'lumotlari</div>
+                <div class="card-body">
+
+
+                    <form [formGroup]="forma" (ngSubmit)="saqlash()">
+
+
+                        
+                        <div class="mb-3">
+                            <label class="small mb-1" for="inputUsername">Ismni o'zgartirish</label>
+                            <input formControlName="name" class="form-control" id="inputUsername" type="text"
+                                placeholder="Ism">
+                        </div>
+                        <div class="row gx-3 mb-3">
+                            <div class="col-md-6">
+                                <label class="small mb-1" for="inputFirstName">familiyani o'zgartirish</label>
+                                <input formControlName="surname" class="form-control" id="inputFirstName" type="text"
+                                    placeholder="Familiya">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="small mb-1" for="inputLastName">Otasini ismi </label>
+                                <input formControlName='fatherName' class="form-control" id="inputLastName" type="text"
+                                    placeholder="telofon raqam">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="small mb-1" for="inputLastName">Login (telefo raqam) </label>
+                                <input formControlName='phone' class="form-control" id="inputLastName" type="text"
+                                    placeholder="telofon raqam">
+                            </div>
+                        </div>
+                        <button style="margin-left: 20px; margin-top: 10px;" mat-raised-button color="primary"
+                            type="submit">
+                            update
+                        </button>
+                    </form>
+
+
+                    <form [formGroup]="passForm" (ngSubmit)="save()">
+                        <div class="row gx-3 mb-3">
+                            <div class="col-md-6">
+                                <label class="small mb-1" for="inputOrgName">Eski parol</label>
+                                <input formControlName='old' class="form-control" id="inputOrgName" type="password"
+                                    placeholder="Eski parol">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="small mb-1" for="inputLocation">Yangi parol </label>
+                                <input formControlName='password' class="form-control" id="inputLocation"
+                                    type="password" placeholder=" yangi parol">
+                            </div>
+                        </div>
+                        <button style="margin-left: 20px; margin-top: 10px;" mat-raised-button color="primary"
+                        type="submit">
+                        update
+                    </button>
+                    </form>
+
+
+
+
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

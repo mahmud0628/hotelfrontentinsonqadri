@@ -1,0 +1,54 @@
+<div class="bg-light min-vh-100 d-flex flex-row align-items-center">
+  <c-container>
+    <c-row class="justify-content-center">
+      <c-col md="4">
+        <c-card-group>
+          <c-card class="p-4">
+            <c-card-body>
+              <form cForm [formGroup]="loginForm" (ngSubmit)="onLogin()">
+                <h1>Kirish </h1>
+                <p class="text-medium-emphasis">Inson qadri</p>
+                <c-input-group class="mb-3">
+                  <span cInputGroupText>
+                    <svg cIcon name="cilUser"></svg>
+                  </span>
+                  <input formControlName="username" autoComplete="username" cFormControl
+                    placeholder="Telefon raqam..." />
+                </c-input-group>
+                <c-input-group class="mb-4">
+                  <span cInputGroupText>
+                    <svg cIcon name="cilLockLocked"></svg>
+                  </span>
+                  <input formControlName="password" autoComplete="current-password" cFormControl placeholder="Parol"
+                    type="password" />
+                </c-input-group>
+                <c-row>
+                  <c-col xs="6">
+                    <button type="submit" cButton class="px-4" color="primary">
+                      Kirish
+                    </button>
+                  </c-col>
+                  <c-col class="text-right" xs="6">
+
+                  </c-col>
+                </c-row>
+              </form>
+            </c-card-body>
+          </c-card>
+          <!-- <c-card [ngStyle]="{'width.%': 44}" class="text-white bg-info py-5">
+            <c-card-body class="text-center">
+              <div>
+
+                <img width="100px" height="100px" src="https://www.inson-qadri.uz/assets/images/logo-trans.png" alt="">
+                <h2
+                  style="font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
+                  Inson qadri</h2>
+
+              </div>
+            </c-card-body>
+          </c-card> -->
+        </c-card-group>
+      </c-col>
+    </c-row>
+  </c-container>
+</div>

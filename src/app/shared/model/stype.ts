@@ -1,0 +1,4 @@
+export enum SType{
+   TAMINOTCHI="TAMINOTCHI",
+   SUBYEKT="SUBJECT" 
+}

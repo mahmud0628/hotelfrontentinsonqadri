@@ -1,0 +1,87 @@
+<!-- <mat-card>
+    <h1>
+   Foydalanuvchilar
+  </h1> </mat-card>
+  
+  <div class="example-container">
+     <div class="example-loading-shade"
+          *ngIf="isLoadingResults || isRateLimitReached">
+       <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+       <div class="example-rate-limit-reached" *ngIf="isRateLimitReached">
+         Ma'lumotlarni olib kelishning imkon bo'lmadi
+       </div>
+     </div>
+  
+     <div class="example-table-container">
+       <table mat-table [dataSource]="users" class="example-table"
+         matSort matSortActive="id" matSortDisableClear matSortDirection="desc" >
+         <ng-container matColumnDef="id">
+           <th mat-header-cell mat-sort-header *matHeaderCellDef >ID</th>
+           <td mat-cell *matCellDef="let row">{{row.id}}</td>
+         </ng-container>
+         <ng-container matColumnDef="phone">
+           <th mat-header-cell mat-sort-header *matHeaderCellDef>Login</th>
+           <td class="login" mat-cell *matCellDef="let row">
+             <span> {{row!.phone}}</span>
+           </td>
+         </ng-container>
+         <ng-container matColumnDef="name">
+           <th mat-header-cell mat-sort-header *matHeaderCellDef>Ism</th>
+           <td class="ism" mat-cell *matCellDef="let row">
+             <span> {{row!.name}}</span>
+           </td>
+         </ng-container>
+         <ng-container matColumnDef="surname">
+           <th mat-header-cell mat-sort-header *matHeaderCellDef>Familiya</th>
+           <td class="familiya" mat-cell *matCellDef="let row">
+             <span> {{row!.surname}}</span>
+           </td>
+         </ng-container>
+         <ng-container matColumnDef="fatherName">
+           <th mat-header-cell mat-sort-header *matHeaderCellDef>Sharif</th>
+           <td class="sharif" mat-cell *matCellDef="let row">
+             <span> {{row!.fatherName}}</span>
+           </td>
+         </ng-container>
+         <ng-container matColumnDef="status">
+            <th mat-header-cell mat-sort-header *matHeaderCellDef>Status</th>
+            <td class="status" mat-cell *matCellDef="let row">
+              <span> {{row!.status}}</span>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="password">
+            <th mat-header-cell mat-sort-header *matHeaderCellDef>Password</th>
+            <td class="status" mat-cell *matCellDef="let row">
+              <span> {{row!.password}}</span>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="territory">
+            <th mat-header-cell mat-sort-header *matHeaderCellDef>Territory</th>
+            <td class="status" mat-cell *matCellDef="let row">
+              <span> {{row!.territory}}</span>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="roles">
+            <th mat-header-cell mat-sort-header *matHeaderCellDef>Lavozimlar</th>
+            <td class="login" mat-cell *matCellDef="let row">
+              <span> {{row!.roles[0]}}</span>
+            </td>
+          </ng-container>
+         <ng-container matColumnDef="amal" >
+          <th mat-header-cell *matHeaderCellDef>Amal</th>
+         <td mat-cell *matCellDef="let row">
+          <button *ngIf="row?.status" mat-mini-fab color="accent" (click)='ochirish(row?.id)'>
+            <mat-icon>delete</mat-icon>
+          </button>
+          <button *ngIf="!row?.status" mat-mini-fab style="background-color: rgb(0, 255, 21);" (click)='ochirish(row?.id)'>
+            <mat-icon>add</mat-icon>
+          </button>
+         </td>
+       </ng-container>
+         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+       </table>
+        <mat-paginator [length]="length" [pageSizeOptions]="[pageValue]" (click)="pageClick()">
+      </mat-paginator>
+     </div>
+   </div> -->
