@@ -4,7 +4,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
-import { User } from 'src/app/shared/model/user';
 import { DeleteDialogComponent } from 'src/app/shared/dialogs/delete-dialog/delete-dialog.component';
 
 import { Bino } from 'src/app/shared/model/bino';
@@ -31,7 +30,7 @@ export class BinoComponent implements OnInit, AfterViewInit {
 
 
     pageSize = 10;
-    binos!:Bino[];
+    binolar!:Bino[];
     tahrirRejim = false;
     sort = 'id';
     sortType = 'asc'
@@ -49,7 +48,6 @@ export class BinoComponent implements OnInit, AfterViewInit {
 
      }
 
-
     ngOnInit(): void {
       this.createForm = this.formBuilder.group({
         id: [{ value: '', disabled: true}],
@@ -62,8 +60,9 @@ export class BinoComponent implements OnInit, AfterViewInit {
     ngAfterViewInit(): void {
       this.isLoadingResults = false;
       this.isRateLimitReached = false;
-       this.binoService.getAll(this.pageSize).subscribe((data:any)=>{
-         this.binos = data.content;
+       this.binoService.getAll(this.pageSize).subscribe(
+         (data:any)=>{
+         this.binolar = data.content;
        })
 
       
@@ -77,6 +76,7 @@ export class BinoComponent implements OnInit, AfterViewInit {
           (success)=>{
               this.createForm.reset();
               this.tahrirRejim = false;
+              this.ngAfterViewInit();
               this.sorovBajarilmoqda = false;
 
           },
@@ -109,13 +109,14 @@ export class BinoComponent implements OnInit, AfterViewInit {
            panelClass: 'notif-success'
 
        });
+       this.ngAfterViewInit();
        this.sorovBajarilmoqda = false;
         },
         (error)=>{
           let message  = "Xatoli ro'y berdi";
           console.log(error);
 
- if(error.error.message){
+      if(error.error.message){
             message = error.error.message;
           }
           this._snackBar.open(message, 'X',  {
@@ -140,32 +141,33 @@ export class BinoComponent implements OnInit, AfterViewInit {
       window.scroll(0,0);
 
     }
-    ochirish(id:number){
+   
+      ochirish(bino:number){
 
-      this.tozalash();
-      // const message = Siz rostdan ham ushbu  o'chirmoqchimisiz?;
-
-      // const dialogData = new ConfirmDialogModel("O'chirish", message);
-
-      const dialogRef = this.dialog.open(DeleteDialogComponent, {
-        maxWidth: "400px",
-        // data: dialogData
-      });
-
-      dialogRef.afterClosed().subscribe(dialogResult => {
-        if(dialogResult){
-          this.binoService.deleteById(id).subscribe(
-            (success)=>{
-this.ngAfterViewInit();
-            },
-            (error)=>{
-                console.log(error);
-            }
-          );
-        };
-      });
-    }
-
+        this.tozalash();
+        // const message = `Siz rostdan ham ushbu mahsulot turni o'chirmoqchimisiz?`;
+  
+        // const dialogData = new ConfirmDialogModel("O'chirish", message);
+  
+        const dialogRef = this.dialog.open(DeleteDialogComponent, {
+          maxWidth: "400px",
+          // data: dialogData
+        });
+  
+        dialogRef.afterClosed().subscribe(dialogResult => {
+          if(dialogResult){
+            this.binoService.deleteById(bino).subscribe(
+              (success)=>{
+               this.ngAfterViewInit();
+              },
+              (error)=>{
+                  console.log(error);
+              }
+            );
+          };
+        });
+      }
+ 
     tozalash(){
       this.createForm.reset();
       this.tahrirRejim = false;

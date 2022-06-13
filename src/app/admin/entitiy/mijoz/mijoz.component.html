@@ -1,6 +1,6 @@
 <mat-card>
     <h1>
-      Xodimlar
+      Mijozlar
     </h1>
   </mat-card>
   <mat-card>
@@ -9,7 +9,7 @@
       <mat-expansion-panel [expanded]='panelOpenState' (opened)="panelOpenState = true" (closed)="panelOpenState = false">
         <mat-expansion-panel-header>
           <mat-panel-title>
-            Xodim qo'shish
+            Mijoz qo'shish
           </mat-panel-title>
         </mat-expansion-panel-header>
   
@@ -47,22 +47,13 @@
 
           <br>
           <mat-form-field appearance="fill">
-            <mat-label>Boshlangan Vaqt</mat-label>
-            <input matInput [matDatepicker]="picker1" formControlName='boshVaqt' name="boshVaqt">
-            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-            <mat-datepicker #picker1></mat-datepicker>
+            <mat-label>Millat</mat-label>
+            <input name="millati" formControlName='millati' matInput>
           </mat-form-field>
           <br>
 
-          <br>
-          <mat-form-field appearance="fill">
-            <mat-label>Tugash Vaqt</mat-label>
-            <input matInput [matDatepicker]="picker2" formControlName='tugashVaqt' name="tugashVaqt">
-            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-            <mat-datepicker #picker2></mat-datepicker>
-          </mat-form-field>
-          <br>     
-         <br>
+          
+
 
   
           <!-- [disabled]='createForm.invalid  sorovBajarilmoqda' -->
@@ -94,7 +85,7 @@
   
     <div class="example-table-container">
   
-      <table mat-table [dataSource]="xodimlar" class="example-table" matSort matSortActive='id' matSortDisableClear
+      <table mat-table [dataSource]="mijozlar" class="example-table" matSort matSortActive='id' matSortDisableClear
         matSortDirection='asc'>
         <!-- Number Column -->
         <ng-container matColumnDef="id">
@@ -131,18 +122,12 @@
             </td>
         </ng-container>
           
-         <ng-container matColumnDef="boshVaqt">
-            <th mat-header-cell *matHeaderCellDef>boshVaqt</th>
-            <td  mat-cell *matCellDef="let row">{{row.boshVaqt}}</td>
-          </ng-container>
-    
-     
-
-          <ng-container matColumnDef="tugashVaqt">
-            <th mat-header-cell *matHeaderCellDef>Tugash Vaqt</th>
-            <td mat-cell *matCellDef="let row">{{row.tugashVaqt}}</td>
-          </ng-container>
-  
+        <ng-container matColumnDef="millati">
+            <th mat-header-cell mat-sort-header *matHeaderCellDef>Millat</th>
+            <td class="millati" mat-cell *matCellDef="let row">
+              <span> {{row.millati}}</span>
+            </td>
+        </ng-container>
   
         <!-- Star Column -->
         <ng-container matColumnDef="amal">

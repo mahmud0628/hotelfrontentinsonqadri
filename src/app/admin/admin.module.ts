@@ -37,7 +37,6 @@ import { SharedModule as MySharedModule } from '../shared/shared.module';
 import { PerfectScrollbarConfigInterface, PerfectScrollbarModule, PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { MyfooterComponent} from './components/myfooter/myfooter.component';
 import { MyheaderComponent} from './components/myheader/myheader.component';
-
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ChartjsModule } from '@coreui/angular-chartjs';
@@ -47,12 +46,14 @@ import { AdminRoutingModule } from './admin-routing.module'
 import { BinoComponent } from '../admin/components/bino/bino.component';
 import { ProfilComponent } from '../admin/components/profil/profil.component';
 import { XonaComponent } from './components/xona/xona.component';
-
+import { XodimComponent } from './entitiy/xodim/xodim.component';
+import { MijozComponent } from './entitiy/mijoz/mijoz.component';
 import { IconModule } from '@coreui/icons-angular';
 import { RouterModule } from '@angular/router';
-
 import { UserComponent } from './components/user/user.component';
 import { MatCardModule } from '@angular/material/card';
+import { BuyurtmaComponent } from './entitiy/buyurtma/buyurtma.component';
+import { TulovComponent } from './entitiy/tulov/tulov.component';
 
 @NgModule({
   declarations: [
@@ -64,7 +65,10 @@ import { MatCardModule } from '@angular/material/card';
     UserComponent,
     MyheaderComponent,
     ProfilComponent,
-  
+    XodimComponent,
+    MijozComponent,
+    BuyurtmaComponent,
+    TulovComponent
 
 
     // AccordionModule

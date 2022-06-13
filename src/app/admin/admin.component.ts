@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { INavData } from '@coreui/angular';
 import { __extends } from 'tslib';
-import { ViloyatService } from '../shared/service/viloyat.service'
 
  
 @Component({
@@ -36,6 +35,26 @@ export class AdminComponent implements OnInit {
       iconComponent: { name: 'cil-home' }
     },
     {
+      name: 'Xodimlar',
+      url: 'xodim',
+      iconComponent: { name: 'cil-home' }
+    },
+    {
+      name: 'Mijozlar',
+      url: 'mijoz',
+      iconComponent: { name: 'cil-home' }
+    },
+    {
+      name: 'Buyurtmalar',
+      url: 'buyurtma',
+      iconComponent: { name: 'cil-home' }
+    },
+    {
+      name: 'Tulovlar',
+      url: 'tulov',
+      iconComponent: { name: 'cil-home' }
+    },
+    {
       name: 'Tashkilotlar',
       url: 'tashkilot',
       iconComponent: { name: 'cil-institution' }
@@ -46,27 +65,6 @@ export class AdminComponent implements OnInit {
       url: 'chat',
       iconComponent: { name: 'cil-comment-bubble' }
     },
-
-    {
-      name: 'Online Mahalla',
-      url: 'https://www.online-mahalla.uz/login ',
-
-      iconComponent: { name: 'cil-external-link' }
-    },
-
-    {
-      name: 'Tadbirkor kutubxonasi',
-      url: 'books',
-
-      iconComponent: { name: 'cil-external-link' }
-    } ,
- 
-    {
-      name: 'Prezident asarlari',
-      url: 'asar',
-
-      iconComponent: { name: 'cil-external-link' }
-    } , 
 
     {
       name: 'Xaritadan qidiruv',
@@ -81,68 +79,10 @@ export class AdminComponent implements OnInit {
   public perfectScrollbarConfig = {
     suppressScrollX: true, 
   };
-  constructor(private viloyatSerive: ViloyatService, private router: Router) { }
+  constructor( private router: Router) { }
 
   ngOnInit(): void {
-    this.viloyatSerive.getAllFull().subscribe((data: any) => {
-      if (data && data[0]) {
-        let viloyatlar: any[] = [{
-          title: true,
-          name: 'Hududlar',
-        }];
-        for (let v of data) {
-          let tumanlar = [
-           
-          ];
-          for (let t of v.tumans) {
-            let sektorlar = [];
-            for (let s of t.sektors) {
-              let mahallalar = [];
-              for (let m of s.mahallas) {
-                mahallalar.push({
-                  name: m.name,
-                  url: 'mahalla-stat/' + m.id,
-                  iconComponent: { name: 'cil-industry' },
-
-                })
-              }
-              sektorlar.push({
-                name: s.name,
-                url: "sektors/" + s.id,
-                iconComponent: { name: 'cil-institution' },
-                children: mahallalar
-              });
-            }
-            tumanlar.push({
-              name: t.name,
-              url: "shahar/"+t.id,
-              iconComponent: { name: 'cil-house' },
-              children: sektorlar
-            })
-
-          }
-          viloyatlar.push({
-            
-            name: v.name,
-            url: 'viloyat/' + v.id,
-            iconComponent: { name: 'cil-home' },
-            // children: tumanlar,
-            attributes: {
-              onClick: (e: any) => {
-                console.log('ishladi');
-                
-                e.preventDefault();
-                e.stopPropagation();
-                this.router.navigate(['viloyat', v.id])
-              }
-            }
-          })
-        }
-        this.navItems = [...this.navItems, ...viloyatlar];
-
-
-      }
-    })
+    
   }
 
 }

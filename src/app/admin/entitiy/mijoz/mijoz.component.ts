@@ -5,20 +5,18 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { DeleteDialogComponent } from 'src/app/shared/dialogs/delete-dialog/delete-dialog.component';
-import { Xodim } from 'src/app/shared/model/xodim';
+import { Mijoz } from 'src/app/shared/model/mijoz';
+import { MijozService } from 'src/app/shared/service/mijoz.service';
 
-import { XodimService } from 'src/app/shared/service/xodim.service';
 @Component({
-  selector: 'app-xodim',
-  templateUrl: './xodim.component.html',
-  styleUrls: ['./xodim.component.scss']
+  selector: 'app-mijoz',
+  templateUrl: './mijoz.component.html',
+  styleUrls: ['./mijoz.component.scss']
 })
-
-
-export class XodimComponent implements OnInit {
+export class MijozComponent implements OnInit {
 
   panelOpenState = false;
-  displayedColumns: string[] = ['id','pasportId','ism','familiya','jins','boshVaqt','tugashVaqt','amal'];
+  displayedColumns: string[] = ['id','pasportId','ism','familiya','jins','millati','amal'];
 
   resultsLength = 0;
   isLoadingResults = true;
@@ -28,7 +26,7 @@ export class XodimComponent implements OnInit {
   @ViewChild(MatSort) matSort!: MatSort;
 
   pageSize = 10;
-  xodimlar!:Xodim[];
+  mijozlar!:Mijoz[];
   tahrirRejim = false;
   sort = 'id';
   sortType = 'asc'
@@ -37,7 +35,7 @@ export class XodimComponent implements OnInit {
   createForm:any;
 
   constructor(
-    public xodimService: XodimService,
+    public mijozService: MijozService,
     private formBuilder: FormBuilder,
     public dialog: MatDialog,
     private _snackBar: MatSnackBar
@@ -50,33 +48,31 @@ export class XodimComponent implements OnInit {
       ism:[null, Validators.required],
       familiya:[null, Validators.required],
       jins:[''],
-      boshVaqt:[''],
-      tugashVaqt:['']
+      millati:['']
      
-
     })
-
   }
+
   ngAfterViewInit(): void {
     this.isLoadingResults = false;
     this.isRateLimitReached = false;
-     this.xodimService.getAll(this.pageSize).subscribe(
+     this.mijozService.getAll(this.pageSize).subscribe(
        (data:any)=>{
-       this.xodimlar = data.content;
+       this.mijozlar = data.content;
      })
 
     }
     save():void{
-      const xodim = this.createForm.getRawValue();
+      const mijoz = this.createForm.getRawValue();
       this.sorovBajarilmoqda = true;
-      console.log(xodim);
+      console.log(mijoz);
       if(this.tahrirRejim){
-        this.xodimService.update(xodim).subscribe(
+        this.mijozService.update(mijoz).subscribe(
           (success)=>{
               this.createForm.reset();
               this.tahrirRejim = false;
               this.sorovBajarilmoqda = false;
-             this.ngAfterViewInit();    
+
           },
           (error)=>{
 
@@ -97,14 +93,14 @@ export class XodimComponent implements OnInit {
         );
       } else {
 
-      this.xodimService.create(xodim).subscribe(
+      this.mijozService.create(mijoz).subscribe(
         ()=>{
             this.createForm.reset();
-            this._snackBar.open("Bino muvaffaqiyatli qo'shildi!", "", {
+            this._snackBar.open("Mijoz muvaffaqiyatli qo'shildi!", "", {
               duration: 1000,
            verticalPosition: 'top',
            panelClass: 'notif-success'
-
+           
        });
        this.ngAfterViewInit();
        this.sorovBajarilmoqda = false;
@@ -128,14 +124,14 @@ export class XodimComponent implements OnInit {
 
     }
 
-    edit(xodim:Xodim){
+    edit(mijoz:Mijoz){
       this.tahrirRejim = true;
-      this.createForm.reset(xodim);
+      this.createForm.reset(mijoz);
       this.panelOpenState = true;
       window.scroll(0,0);
 
     }
-    ochirish(id:number){
+    ochirish(mijoz:number){
 
       this.tozalash();
       // const message = Siz rostdan ham ushbu  o'chirmoqchimisiz?;
@@ -148,8 +144,8 @@ export class XodimComponent implements OnInit {
 
       dialogRef.afterClosed().subscribe(dialogResult => {
         if(dialogResult){
-          this.xodimService.deleteById(id).subscribe(
-            (success:any)=>{
+          this.mijozService.deleteById(mijoz).subscribe(
+            (success)=>{
               this.ngAfterViewInit();
             },
             (error)=>{

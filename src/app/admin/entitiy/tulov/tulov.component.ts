@@ -1,24 +1,23 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { DeleteDialogComponent } from 'src/app/shared/dialogs/delete-dialog/delete-dialog.component';
-import { Bino } from 'src/app/shared/model/bino';
-import { Xona } from 'src/app/shared/model/xona';
-import { BinoService } from '../../../shared/service/bino.service';
-import { XonaService } from '../../../shared/service/xona.service';
+import { Buyurtma } from 'src/app/shared/model/buyurtma';
+import { Tulov } from 'src/app/shared/model/tulov';
+import { BuyurtmaService } from 'src/app/shared/service/buyurtma.service';
+import { TulovService } from 'src/app/shared/service/tulov.service';
 
 @Component({
-  selector: 'app-xona',
-  templateUrl: './xona.component.html',
-  styleUrls: ['./xona.component.scss']
+  selector: 'app-tulov',
+  templateUrl: './tulov.component.html',
+  styleUrls: ['./tulov.component.scss']
 })
-export class XonaComponent implements OnInit, AfterViewInit {
-
+export class TulovComponent implements OnInit {
   panelOpenState = false;
-  displayedColumns: string[] = ['id', 'sigim', 'isLux', 'narx','bino', 'status', 'amal'];
+  displayedColumns: string[] = ['id','buyurtma','plastikTulov','naqdTulov','tulovVaqt','amal'];
 
   resultsLength = 0;
   isLoadingResults = true;
@@ -28,67 +27,62 @@ export class XonaComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort) matSort!: MatSort;
 
   pageSize = 10;
-  xonalar!: Xona[];
-  binolar!: Bino[];
+  tulovlar!:Tulov[];
+  buyurtmalar!:Buyurtma[];
   tahrirRejim = false;
   sort = 'id';
   sortType = 'asc'
   sorovBajarilmoqda = false;
 
-  createForm: any;
+  createForm:any
 
-
-  constructor(
-    public xonaService: XonaService,
-    public binoService: BinoService,
+  constructor(   
+    public tulovService: TulovService,
+    public buyutmaService:BuyurtmaService,
     private formBuilder: FormBuilder,
     public dialog: MatDialog,
-    private _snackBar: MatSnackBar
-  ) {
-
-  }
-
+    private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.createForm = this.formBuilder.group({
-      id: [{ value: '', disabled: true }],
-      sigim: [''],
-      isLux: [''],
-      bino: [''],
-      narx: [''],
-      status: ['']
-
-    });
+      id: [{ value: '', disabled: true}],
+      buyurtma: [null, Validators.required],
+      plastikTulov:[null, Validators.required],
+      naqdTulov:[null, Validators.required],
+      tulovVaqt:['']
+    })
   }
-
 
   ngAfterViewInit(): void {
     this.isLoadingResults = false;
     this.isRateLimitReached = false;
-     this.xonaService.getAll(this.pageSize).subscribe(
-       (data:any)=>{
-       this.xonalar = data.content;
-     })
+    this.tulovService.getAll(this.pageSize).subscribe((success: any) => {
+      this.tulovlar = success.content;
+      console.log(success.content);this.pageSize
+      
+    })
 
-    this.binoService.getAll(this.pageSize).subscribe(
+    this.buyutmaService.getAll(this.pageSize).subscribe(
       (data:any)=>{
-        this.binolar=data.content;
+        this.buyurtmalar=data.content;
       }
     )
+
+  
       
     
   }
   save(): void {
-    const kassa = this.createForm.getRawValue();
+    const tulov = this.createForm.getRawValue();
     this.sorovBajarilmoqda = true;
-    console.log(kassa);
+    console.log(tulov);
     if (this.tahrirRejim) {
-      this.xonaService.update(kassa).subscribe(
+      this.tulovService.update(tulov).subscribe(
         (success) => {
           this.createForm.reset();
           this.tahrirRejim = false;
           this.sorovBajarilmoqda = false;
-           this.ngAfterViewInit();
+          this.ngAfterViewInit();
         },
         
         (error) => {
@@ -110,16 +104,17 @@ export class XonaComponent implements OnInit, AfterViewInit {
       );
     } else {
 
-      this.xonaService.create(kassa).subscribe(
+      this.tulovService.create(tulov).subscribe(
         ()=>{
           this.createForm.reset();
-          this._snackBar.open("Xona muvaffaqiyatli qo'shildi!", "", {
+          this._snackBar.open("Tulov muvaffaqiyatli qo'shildi!", "", {
             duration: 1000,
             verticalPosition: 'top',
             panelClass: 'notif-success'
 
           });
           this.ngAfterViewInit();
+          this.sorovBajarilmoqda = false;
         },
         (error) => {
           let message = "Xatoli ro'y berdi";
@@ -143,17 +138,17 @@ export class XonaComponent implements OnInit, AfterViewInit {
   }
 
 
-  edit(xona: Xona) {
+  edit(xona: Tulov) {
     this.tahrirRejim = true;
     this.createForm.reset(xona);
     this.panelOpenState = true;
     window.scroll(0, 0);
+
   }
+  ochirish(id: number) {
 
-  ochirish(bino:number){
-
-    this.ngAfterViewInit();
-    // const message = `Siz rostdan ham ushbu mahsulot turni o'chirmoqchimisiz?`;
+    this.tozalash();
+    // const message = Siz rostdan ham ushbu  o'chirmoqchimisiz?;
 
     // const dialogData = new ConfirmDialogModel("O'chirish", message);
 
@@ -163,27 +158,27 @@ export class XonaComponent implements OnInit, AfterViewInit {
     });
 
     dialogRef.afterClosed().subscribe(dialogResult => {
-      if(dialogResult){
-        this.xonaService.deleteById(bino).subscribe(
-          (success)=>{
-            console.log("keldi");
-            
-           this.ngAfterViewInit();
+      if (dialogResult) {
+        this.tulovService.deleteById(id).subscribe(
+          (success:any) => {
+          this.ngAfterViewInit();
           },
-          (error)=>{
-              console.log(error);
+          (error) => {
+            console.log(error);
           }
         );
       };
     });
   }
+ 
 
-  tozalash(){
+  tozalash() {
     this.createForm.reset();
     this.tahrirRejim = false;
     this.sorovBajarilmoqda = false;
     this.panelOpenState = false;
   }
+
 
   saralash(sort: string) {
     if (this.sort == sort) {
@@ -199,4 +194,8 @@ export class XonaComponent implements OnInit, AfterViewInit {
     }
     this.sort = sort;
   }
+
 }
+
+
+

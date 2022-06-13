@@ -11,20 +11,9 @@ import { DeleteDialogComponent } from '../dialogs/delete-dialog/delete-dialog.co
   providedIn: 'root'
 })
 export class BinoService {
-  api=environment.baseUrl + "/api/bino";
+  api=environment.baseUrl + '/api/bino';
 
-  constructor(private http:HttpClient,private dialog:MatDialog) { }
-
-  openConfirmDialog(msg : any){
-    return this.dialog.open(
-      DeleteDialogComponent,{
-        width: "350px",
-        height: "200px",
-        data : {
-          massage : msg
-        }
-      });
-  }
+  constructor(private http:HttpClient) { }
 
   getAll(page: any): Observable<any> {
     return this.http.get<any>(this.api, { params: page });
@@ -36,7 +25,7 @@ export class BinoService {
     return this.http.put<Bino>(this.api, binolar)
   }
   public deleteById(id:number): Observable<any> {
-    return this.http.delete(this.api+'/'+id)
+    return this.http.delete(this.api + '/' +id)
   }
 
 }

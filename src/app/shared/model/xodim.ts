@@ -1,12 +1,17 @@
+import { Lavozim } from "./lavozimlar";
 
 
 
 
 export interface Xodim {
     id: number;
-    fullName: string;
-    phone: number;
-    description: string
-    photoId: number;
+    pasportId:string;
+    ism:string;
+    familiya:string;
+    jins:string;
+    boshVaqt:Date;
+    tugashVaqt:Date;
+    lavozim:Lavozim;
+
 }
 

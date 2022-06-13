@@ -1,6 +1,6 @@
 <mat-card>
     <h1>
-      Xodimlar
+      Buyurtmalar
     </h1>
   </mat-card>
   <mat-card>
@@ -9,7 +9,7 @@
       <mat-expansion-panel [expanded]='panelOpenState' (opened)="panelOpenState = true" (closed)="panelOpenState = false">
         <mat-expansion-panel-header>
           <mat-panel-title>
-            Xodim qo'shish
+            Buyurtma qo'shish
           </mat-panel-title>
         </mat-expansion-panel-header>
   
@@ -20,35 +20,44 @@
             <input name="id" formControlName='id' matInput>
           </mat-form-field>
           <br>
-          <mat-form-field appearance="fill">
-            <mat-label>PasportId</mat-label>
-            <input name="pasportId" formControlName='pasportId' matInput>
-          </mat-form-field>
+  
           <br>
-        
-          <br>
-          <mat-form-field appearance="fill">
-            <mat-label>Ism</mat-label>
-            <input name="ism" formControlName='ism' matInput>
-          </mat-form-field>
-          <br>
-          <br>
-          <mat-form-field appearance="fill">
-            <mat-label>Familiya</mat-label>
-            <input name="familiya" formControlName='familiya' matInput>
-          </mat-form-field>
-          <br>
-          <br>
-          <mat-form-field appearance="fill">
-            <mat-label>Jins</mat-label>
-            <input name="jins" formControlName='jins' matInput>
-          </mat-form-field>
-          <br>
+          <mat-form-field appearance = "fill">
+           <mat-label>Xona</mat-label>
+           <mat-select formControlName="xona">
+               <mat-option [value]='xona' *ngFor='let xona of xonalar'>
+                   {{xona.sigim}}
+               </mat-option>
+           </mat-select>
+         </mat-form-field>
+         <br>
+  
+         <br>
+          <mat-form-field appearance = "fill">
+           <mat-label>Xodim</mat-label>
+           <mat-select formControlName="xodim">
+               <mat-option [value]='xodim' *ngFor='let xodim of xodimlar'>
+                   {{xodim.ism}}
+               </mat-option>
+           </mat-select>
+         </mat-form-field>
+         <br>
 
-          <br>
+         <br>
+          <mat-form-field appearance = "fill">
+           <mat-label>Mijoz</mat-label>
+           <mat-select formControlName="mijoz">
+               <mat-option [value]='mijoz' *ngFor='let mijoz of mijozlar'>
+                   {{mijoz.ism}}
+               </mat-option>
+           </mat-select>
+         </mat-form-field>
+         <br>
+
+         <br>
           <mat-form-field appearance="fill">
-            <mat-label>Boshlangan Vaqt</mat-label>
-            <input matInput [matDatepicker]="picker1" formControlName='boshVaqt' name="boshVaqt">
+            <mat-label>Buyurtma Olgan Vaqt</mat-label>
+            <input matInput [matDatepicker]="picker1" formControlName='buyurtmaYaratilganVaqt' name="buyurtmaYaratilganVaqt">
             <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
             <mat-datepicker #picker1></mat-datepicker>
           </mat-form-field>
@@ -56,14 +65,21 @@
 
           <br>
           <mat-form-field appearance="fill">
-            <mat-label>Tugash Vaqt</mat-label>
-            <input matInput [matDatepicker]="picker2" formControlName='tugashVaqt' name="tugashVaqt">
+            <mat-label>Buyurtma Yopilgan Vaqt</mat-label>
+            <input matInput [matDatepicker]="picker2" formControlName='buyurtmaYopilganVaqt' name="buyurtmaYopilganVaqt">
             <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
             <mat-datepicker #picker2></mat-datepicker>
           </mat-form-field>
           <br>     
          <br>
-
+         
+  
+  
+  
+  
+  
+  
+  
   
           <!-- [disabled]='createForm.invalid  sorovBajarilmoqda' -->
           <button type="submit" mat-raised-button color="primary">
@@ -75,6 +91,9 @@
             <mat-icon>clear</mat-icon>
             Bekor qilish
           </button>
+  
+  
+  
   
         </form>
   
@@ -94,7 +113,7 @@
   
     <div class="example-table-container">
   
-      <table mat-table [dataSource]="xodimlar" class="example-table" matSort matSortActive='id' matSortDisableClear
+      <table mat-table [dataSource]="buyurtmalar" class="example-table" matSort matSortActive='id' matSortDisableClear
         matSortDirection='asc'>
         <!-- Number Column -->
         <ng-container matColumnDef="id">
@@ -102,46 +121,40 @@
           <td mat-cell *matCellDef="let row">{{row.id}}</td>
         </ng-container>
   
-        <!-- Title Column -->
-        <ng-container matColumnDef="pasportId">
-          <th mat-header-cell mat-sort-header *matHeaderCellDef>PasportID</th>
-          <td class="pasportId" mat-cell *matCellDef="let row">
-            <span> {{row.pasportId}}</span>
-          </td>
-        </ng-container>
+        
   
-        <ng-container matColumnDef="ism">
-          <th mat-header-cell mat-sort-header *matHeaderCellDef>Ism</th>
-          <td class="ism" mat-cell *matCellDef="let row">
-            <span> {{row.ism}}</span>
+        <ng-container matColumnDef="xona">
+          <th mat-header-cell *matHeaderCellDef>Xona</th>
+          <td class="xona" mat-cell *matCellDef="let row">
+            <span> {{row.xona? row.xona.sigim: "-"}}</span>
           </td>
         </ng-container>
-  
-        <ng-container matColumnDef="familiya">
-          <th mat-header-cell *matHeaderCellDef>Familiya</th>
-          <td class="familiya" mat-cell *matCellDef="let row">
-            <span> {{row.familiya}}</span>
-          </td>
-        </ng-container>
-
-        <ng-container matColumnDef="jins">
-            <th mat-header-cell mat-sort-header *matHeaderCellDef>Jins</th>
-            <td class="jins" mat-cell *matCellDef="let row">
-              <span> {{row.jins}}</span>
+        
+        <ng-container matColumnDef="xodim">
+            <th mat-header-cell *matHeaderCellDef>Xodim</th>
+            <td class="xodim" mat-cell *matCellDef="let row">
+              <span> {{row.xodim? row.xodim.ism: "-"}}</span>
             </td>
-        </ng-container>
-          
-         <ng-container matColumnDef="boshVaqt">
-            <th mat-header-cell *matHeaderCellDef>boshVaqt</th>
-            <td  mat-cell *matCellDef="let row">{{row.boshVaqt}}</td>
           </ng-container>
-    
-     
 
-          <ng-container matColumnDef="tugashVaqt">
-            <th mat-header-cell *matHeaderCellDef>Tugash Vaqt</th>
-            <td mat-cell *matCellDef="let row">{{row.tugashVaqt}}</td>
+          
+        <ng-container matColumnDef="mijoz">
+            <th mat-header-cell *matHeaderCellDef>Mijoz</th>
+            <td class="mijoz" mat-cell *matCellDef="let row">
+              <span> {{row.mijoz? row.mijoz.ism: "-"}}</span>
+            </td>
           </ng-container>
+  
+          <ng-container matColumnDef="buyurtmaYaratilganVaqt">
+            <th mat-header-cell *matHeaderCellDef>Buyurtma YaratilganVaqt</th>
+            <td  mat-cell *matCellDef="let row">{{row.buyurtmaYaratilganVaqt? row.buyurtmaYaratilganVaqt: "-"}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="buyurtmaYopilganVaqt">
+            <th mat-header-cell *matHeaderCellDef>Buyurtma Yopilgan Vaqt</th>
+            <td mat-cell *matCellDef="let row">{{row.buyurtmaYopilganVaqt? row.buyurtmaYopilganVaqt: "-"}}</td>
+          </ng-container>
+  
   
   
         <!-- Star Column -->

@@ -1,24 +1,28 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
-import { DeleteDialogComponent } from 'src/app/shared/dialogs/delete-dialog/delete-dialog.component';
-import { Bino } from 'src/app/shared/model/bino';
+import { Mijoz } from 'src/app/shared/model/mijoz';
+import { Xodim } from 'src/app/shared/model/xodim';
 import { Xona } from 'src/app/shared/model/xona';
-import { BinoService } from '../../../shared/service/bino.service';
-import { XonaService } from '../../../shared/service/xona.service';
+import { MijozService } from 'src/app/shared/service/mijoz.service';
+import { XodimService } from 'src/app/shared/service/xodim.service';
+import { XonaService } from 'src/app/shared/service/xona.service';
+import { BuyurtmaService } from 'src/app/shared/service/buyurtma.service';
+import { DeleteDialogComponent } from 'src/app/shared/dialogs/delete-dialog/delete-dialog.component';
+import { Buyurtma } from 'src/app/shared/model/buyurtma';
 
 @Component({
-  selector: 'app-xona',
-  templateUrl: './xona.component.html',
-  styleUrls: ['./xona.component.scss']
+  selector: 'app-buyurtma',
+  templateUrl: './buyurtma.component.html',
+  styleUrls: ['./buyurtma.component.scss']
 })
-export class XonaComponent implements OnInit, AfterViewInit {
+export class BuyurtmaComponent implements OnInit {
 
   panelOpenState = false;
-  displayedColumns: string[] = ['id', 'sigim', 'isLux', 'narx','bino', 'status', 'amal'];
+  displayedColumns: string[] = ['id', 'xona','xodim', 'mijoz','buyurtmaYaratilganVaqt','buyurtmaYopilganVaqt', 'amal'];
 
   resultsLength = 0;
   isLoadingResults = true;
@@ -28,51 +32,61 @@ export class XonaComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort) matSort!: MatSort;
 
   pageSize = 10;
-  xonalar!: Xona[];
-  binolar!: Bino[];
+  buyurtmalar:Buyurtma[]=[];
+  xonalar: Xona[]=[];
+  xodimlar: Xodim[]=[];
+  mijozlar: Mijoz[]=[];
   tahrirRejim = false;
   sort = 'id';
   sortType = 'asc'
   sorovBajarilmoqda = false;
 
   createForm: any;
-
-
   constructor(
+    public buyurtmaService:BuyurtmaService,
+    public xodimService:XodimService,
+    public mijozService: MijozService,
     public xonaService: XonaService,
-    public binoService: BinoService,
     private formBuilder: FormBuilder,
     public dialog: MatDialog,
     private _snackBar: MatSnackBar
-  ) {
-
-  }
-
+  ) { }
 
   ngOnInit(): void {
     this.createForm = this.formBuilder.group({
       id: [{ value: '', disabled: true }],
-      sigim: [''],
-      isLux: [''],
-      bino: [''],
-      narx: [''],
-      status: ['']
+      xona: [null, Validators.required],
+      xodim: [null, Validators.required],
+      mijoz: [null, Validators.required],
+      buyurtmaYaratilganVaqt: [''],
+      buyurtmaYopilganVaqt: ['']
 
     });
   }
 
-
   ngAfterViewInit(): void {
     this.isLoadingResults = false;
     this.isRateLimitReached = false;
-     this.xonaService.getAll(this.pageSize).subscribe(
-       (data:any)=>{
-       this.xonalar = data.content;
-     })
+    this.buyurtmaService.getAll(this.pageSize).subscribe((success: any) => {
+      this.buyurtmalar = success.content;
+      console.log(success.content);this.pageSize
+      
+    })
 
-    this.binoService.getAll(this.pageSize).subscribe(
+    this.xonaService.getAll(this.pageSize).subscribe(
       (data:any)=>{
-        this.binolar=data.content;
+        this.xonalar=data.content;
+      }
+    )
+
+    this.xodimService.getAll(this.pageSize).subscribe(
+      (data:any)=>{
+        this.xodimlar=data.content;
+      }
+    )
+    this.mijozService.getAll(this.pageSize).subscribe(
+      (data:any)=>{
+        this.mijozlar=data.content;
       }
     )
       
@@ -83,12 +97,12 @@ export class XonaComponent implements OnInit, AfterViewInit {
     this.sorovBajarilmoqda = true;
     console.log(kassa);
     if (this.tahrirRejim) {
-      this.xonaService.update(kassa).subscribe(
+      this.buyurtmaService.update(kassa).subscribe(
         (success) => {
           this.createForm.reset();
           this.tahrirRejim = false;
           this.sorovBajarilmoqda = false;
-           this.ngAfterViewInit();
+          this.ngAfterViewInit();
         },
         
         (error) => {
@@ -110,7 +124,7 @@ export class XonaComponent implements OnInit, AfterViewInit {
       );
     } else {
 
-      this.xonaService.create(kassa).subscribe(
+      this.buyurtmaService.create(kassa).subscribe(
         ()=>{
           this.createForm.reset();
           this._snackBar.open("Xona muvaffaqiyatli qo'shildi!", "", {
@@ -120,6 +134,7 @@ export class XonaComponent implements OnInit, AfterViewInit {
 
           });
           this.ngAfterViewInit();
+          this.sorovBajarilmoqda = false;
         },
         (error) => {
           let message = "Xatoli ro'y berdi";
@@ -143,17 +158,17 @@ export class XonaComponent implements OnInit, AfterViewInit {
   }
 
 
-  edit(xona: Xona) {
+  edit(xona: Buyurtma) {
     this.tahrirRejim = true;
     this.createForm.reset(xona);
     this.panelOpenState = true;
     window.scroll(0, 0);
+
   }
+  ochirish(id: number) {
 
-  ochirish(bino:number){
-
-    this.ngAfterViewInit();
-    // const message = `Siz rostdan ham ushbu mahsulot turni o'chirmoqchimisiz?`;
+    this.tozalash();
+    // const message = Siz rostdan ham ushbu  o'chirmoqchimisiz?;
 
     // const dialogData = new ConfirmDialogModel("O'chirish", message);
 
@@ -163,27 +178,26 @@ export class XonaComponent implements OnInit, AfterViewInit {
     });
 
     dialogRef.afterClosed().subscribe(dialogResult => {
-      if(dialogResult){
-        this.xonaService.deleteById(bino).subscribe(
-          (success)=>{
-            console.log("keldi");
-            
-           this.ngAfterViewInit();
+      if (dialogResult) {
+        this.buyurtmaService.deleteById(id).subscribe(
+          (success:any) => {
+          this.ngAfterViewInit();
           },
-          (error)=>{
-              console.log(error);
+          (error) => {
+            console.log(error);
           }
         );
       };
     });
   }
 
-  tozalash(){
+  tozalash() {
     this.createForm.reset();
     this.tahrirRejim = false;
     this.sorovBajarilmoqda = false;
     this.panelOpenState = false;
   }
+
 
   saralash(sort: string) {
     if (this.sort == sort) {
@@ -199,4 +213,5 @@ export class XonaComponent implements OnInit, AfterViewInit {
     }
     this.sort = sort;
   }
+
 }

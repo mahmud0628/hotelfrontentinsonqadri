@@ -6,7 +6,6 @@ import { iconSubset } from './icons/icon-subset';
 import { Title } from '@angular/platform-browser';
 import {AccountService} from "./core/account.service";
 import {JwtUtil} from "./core/jwt.util";
-import { Lavozim } from './shared/model/lavozimlar';
 @Component({
   // tslint:disable-next-line:component-selector
   selector: 'body',
@@ -31,13 +30,13 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
 
-    if (this.accountService.hasAnyAuthority([Lavozim.ADMIN, Lavozim.HOKIM, Lavozim.SUPER_ADMIN])) {
-      this.router.navigate(['/admin']);
-    } else if (this.accountService.hasAnyAuthority([Lavozim.MAHALLA])) {
-      this.accountService.identity().subscribe(user => {
-        this.router.navigate(['/mahalla', user?.territory])
-      })
-    }
+    // if (this.accountService.hasAnyAuthority([Lavozim.ADMIN, Lavozim.HOKIM, Lavozim.SUPER_ADMIN])) {
+    //   this.router.navigate(['/admin']);
+    // } else if (this.accountService.hasAnyAuthority([Lavozim.MAHALLA])) {
+    //   this.accountService.identity().subscribe(user => {
+    //     this.router.navigate(['/mahalla', user?.territory])
+    //   })
+    // }
 
     // this.router.events.subscribe(event => {
     //   if (event instanceof NavigationEnd) {

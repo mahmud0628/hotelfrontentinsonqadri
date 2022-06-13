@@ -40,13 +40,13 @@ export class LoginComponent implements OnInit {
     this.loginService.login(loginParol).subscribe(
       (data) => {
        
-        if (this.accountService.hasAnyAuthority([Lavozim.ADMIN, Lavozim.HOKIM, Lavozim.SUPER_ADMIN])) {
-          this.router.navigate(['/admin/viloyat/1']);
-        } else if (this.accountService.hasAnyAuthority([Lavozim.MAHALLA])) {
-          this.accountService.identity().subscribe(user => {
-            this.router.navigate(['/mahalla', user?.territory])
-          })
-        }
+        // if (this.accountService.hasAnyAuthority([Lavozim.ADMIN, Lavozim.HOKIM, Lavozim.SUPER_ADMIN])) {
+        //   this.router.navigate(['/admin/viloyat/1']);
+        // } else if (this.accountService.hasAnyAuthority([Lavozim.MAHALLA])) {
+        //   this.accountService.identity().subscribe(user => {
+        //     this.router.navigate(['/mahalla', user?.territory])
+        //   })
+        // }
       }
     )
   }

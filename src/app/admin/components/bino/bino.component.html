@@ -32,17 +32,8 @@
         </mat-form-field>
         <br>
 
-
-
-
-
-
-
-
-
-
         <!-- [disabled]='createForm.invalid  sorovBajarilmoqda' -->
-        <button type="submit"  mat-raised-button color="primary" >
+        <button type="submit" mat-raised-button color="primary">
           <mat-icon>add</mat-icon>
           Saqlash
         </button>
@@ -52,16 +43,12 @@
           Bekor qilish
         </button>
 
-
-
-
       </form>
 
     </mat-expansion-panel>
   </mat-accordion>
 
-
-</mat-card>
+</mat-card> 
 
 <div class="example-container mat-elevation-z8">
   <div class="example-loading-shade" *ngIf="isLoadingResults  isRateLimitReached">
@@ -73,7 +60,7 @@
 
   <div class="example-table-container">
 
-    <table mat-table [dataSource]="binos" class="example-table" matSort matSortActive='id' matSortDisableClear
+    <table mat-table [dataSource]="binolar" class="example-table" matSort matSortActive='id' matSortDisableClear
       matSortDirection='asc'>
       <!-- Number Column -->
       <ng-container matColumnDef="id">
@@ -91,13 +78,11 @@
       </ng-container>
 
       <ng-container matColumnDef="manzil">
-        <th mat-header-cell *matHeaderCellDef>boshVaqt</th>
-        <td class="boshVaqt" mat-cell *matCellDef="let row">
+        <th mat-header-cell *matHeaderCellDef>manzil</th>
+        <td class="manzil" mat-cell *matCellDef="let row">
           <span> {{row.manzil}}</span>
         </td>
       </ng-container>
-
-
 
       <!-- Star Column -->
       <ng-container matColumnDef="amal">
@@ -112,11 +97,10 @@
         </td>
       </ng-container>
 
-
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
-    <mat-paginator [length]='resultsLength' [pageSize]='10' [pageSizeOptions]='[5,10,25,100]'></mat-paginator>
+    <mat-paginator [length]='resultsLength' [pageSize]='5' [pageSizeOptions]='[5,10,25,100]'></mat-paginator>
   </div>
 
 

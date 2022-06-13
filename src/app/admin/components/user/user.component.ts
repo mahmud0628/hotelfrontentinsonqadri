@@ -4,9 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { DeleteDialogComponent } from 'src/app/shared/dialogs/delete-dialog/delete-dialog.component';
-import { Mahalla } from 'src/app/shared/model/mahalla';
-import { Sektor } from 'src/app/shared/model/sektor';
-import { Tuman } from 'src/app/shared/model/tuman';
+
 import { User } from 'src/app/shared/model/user';
 import { UserService } from './user.service';
 
@@ -27,10 +25,6 @@ isLoadingResults = true;
 isRateLimitReached = false;
 @ViewChild(MatPaginator) paginator!: MatPaginator;
 @ViewChild(MatSort) matSort!: MatSort;
-tumanlar!:Tuman[];
-sektorlar!:Sektor[];
-mahallalar!:Mahalla[];
-request!: Request[];
 tahrirRejim = false;
 createForm: any;
 activeCheck = false;
